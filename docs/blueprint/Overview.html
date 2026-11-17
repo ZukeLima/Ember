@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<title>Ember: Overview</title>
+<script src="59b4151c-dde1-46fa-a8b2-92b2c1c2c312"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#FFF7F0;color:#2B1D17;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:14px;line-height:22px}
+a{color:#EA6A12}a:hover{color:#B84A0B}
+h1,h2,h3,p{margin:0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;background:#F6ECE3;padding:1px 6px;border-radius:6px}
+</style>
+</helmet>
+<div style="background: #FFF7F0; min-height: 900px">
+<header style="background: #FFFFFF; border-bottom: 1px solid #F1E4D9">
+<div style="max-width: 1120px; margin: 0 auto; padding: 12px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 8px; font-size: 18px; line-height: 26px; font-weight: 600; color: #2B1D17; text-decoration: none"><svg aria-hidden="true" width="24" height="24" sc-camel-view-box="0 0 24 24" fill="none" stroke="#EA6A12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h5l3-7 4 14 3-7h5"></path></svg><span>Ember</span></a>
+<nav style="display: flex; flex-wrap: wrap; gap: 4px">
+<a href="Main.dc.html" style="padding: 11px 12px; border-radius: 8px; background: #FBEADB; color: #B84A0B; font-weight: 500; text-decoration: none">Overview</a>
+<a href="Product.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Product</a>
+<a href="Architecture.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Architecture</a>
+<a href="Data-Metrics.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Data &amp; Metrics</a>
+<a href="Design-System.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Design system</a>
+<a href="Sales-Overview.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Sales screen</a>
+<a href="Operations.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Operations</a>
+</nav>
+</div>
+</header>
+<main style="max-width: 1120px; margin: 0 auto; padding: 56px 32px 96px; display: flex; flex-direction: column; gap: 56px">
+
+<section style="display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<span style="padding: 2px 10px; border-radius: 999px; background: #FBEADB; color: #B84A0B; font-size: 12px; line-height: 18px; font-weight: 500">Version 0.1 · proposed baseline</span>
+<span style="padding: 2px 10px; border-radius: 999px; background: #FBF1DF; color: #7A5208; font-size: 12px; line-height: 18px; font-weight: 500">Draft · awaiting product decisions</span>
+</div>
+<h1 style="font-size: 28px; line-height: 36px; font-weight: 600">Ember: Product &amp; Engineering Blueprint</h1>
+<p style="max-width: 720px; font-size: 18px; line-height: 28px; color: #2B1D17">A small, trustworthy analytics platform in which revenue can be traced from source records through tested transformation models to a dashboard with documented definitions and freshness.</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 16px">
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 16px 24px"><p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Owner</p><p style="font-weight: 500">Lucas</p><p style="color: #7A6558">Product Owner + Analytics Engineer</p></div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 16px 24px"><p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Product type</p><p style="font-weight: 500">Analytics platform</p><p style="color: #7A6558">Analytics engineering</p></div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 16px 24px"><p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Target</p><p style="font-weight: 500">Functional local MVP</p><p style="color: #7A6558">Reproducible by another developer</p></div>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 16px 24px; display: flex; gap: 16px; align-items: flex-start">
+<span aria-hidden="true" style="flex: none; width: 24px; height: 24px; border-radius: 999px; background: #FBEADB; color: #B84A0B; font-size: 14px; line-height: 24px; font-weight: 600; text-align: center">i</span>
+<p style="color: #2B1D17">This blueprint defines a proposed fictional e-commerce domain. All entities, rules, thresholds, datasets and design choices are <b>assumptions for the project</b>, not facts about a real business. No actual customer data is required.</p>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<div><p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Documentation map</p><h2 style="font-size: 18px; line-height: 26px; font-weight: 600">Six pages, matching the target <code>docs/</code> folder</h2></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 16px">
+<a href="Product.dc.html" style="display: flex; flex-direction: column; gap: 8px; background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; color: #2B1D17; text-decoration: none"><span style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">01 · docs/product.md · §1, §2</span><span style="font-size: 18px; line-height: 26px; font-weight: 600; color: #B84A0B">Product</span><span style="color: #2B1D17">Problem, vision, personas, goals and non-goals, release gates, user stories, Definition of Ready/Done, 3-sprint plan, first ticket and release checklist.</span></a>
+<a href="Architecture.dc.html" style="display: flex; flex-direction: column; gap: 8px; background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; color: #2B1D17; text-decoration: none"><span style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">02 · docs/architecture.md, docs/adr/ · §3</span><span style="font-size: 18px; line-height: 26px; font-weight: 600; color: #B84A0B">Architecture</span><span style="color: #2B1D17">Data flow, technology decisions and trade-offs, architecture boundaries, repository layout and the five ADRs to record.</span></a>
+<a href="Data-Metrics.dc.html" style="display: flex; flex-direction: column; gap: 8px; background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; color: #2B1D17; text-decoration: none"><span style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">03 · docs/data-contracts.md, docs/metrics.md · §4</span><span style="font-size: 18px; line-height: 26px; font-weight: 600; color: #B84A0B">Data &amp; Metrics</span><span style="color: #2B1D17">Source contracts, dimensional marts, metric dictionary, time semantics, data-quality policy, deduplication rule and test scenarios.</span></a>
+<a href="Design-System.dc.html" style="display: flex; flex-direction: column; gap: 8px; background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; color: #2B1D17; text-decoration: none"><span style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">04 · docs/design-system.md · §5</span><span style="font-size: 18px; line-height: 26px; font-weight: 600; color: #B84A0B">Design system</span><span style="color: #2B1D17">Design intent, foundation tokens, typography, contrast audit, component inventory with states, accessibility and UX acceptance criteria.</span></a>
+<a href="Sales-Overview.dc.html" style="display: flex; flex-direction: column; gap: 8px; background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; color: #2B1D17; text-decoration: none"><span style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">05 · Screen 01 · §5</span><span style="font-size: 18px; line-height: 26px; font-weight: 600; color: #B84A0B">Sales Overview screen</span><span style="color: #2B1D17">The one MVP screen drawn with the design system, plus its loading, empty, stale and critical-failure states.</span></a>
+<a href="Operations.dc.html" style="display: flex; flex-direction: column; gap: 8px; background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; color: #2B1D17; text-decoration: none"><span style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">06 · docs/runbook.md · §6, §7</span><span style="font-size: 18px; line-height: 26px; font-weight: 600; color: #B84A0B">Operations</span><span style="color: #2B1D17">Engineering workflow, CI pipeline, runbook, security and data handling, risks and product-owner decisions.</span></a>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<div><p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Open items</p><h2 style="font-size: 18px; line-height: 26px; font-weight: 600">Two decisions to lock for v0.2</h2></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 16px">
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+<h3 style="font-size: 16px; line-height: 24px; font-weight: 600">1 · Domain</h3>
+<p style="color: #7A6558">Keep the fictional e-commerce domain, or use a synthetic digital analytics / A/B experimentation domain?</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><span style="padding: 2px 10px; border-radius: 999px; background: #E6F4EE; color: #0F6B4A; font-size: 12px; line-height: 18px; font-weight: 500">Recommended: fictional e-commerce (speed)</span><span style="padding: 2px 10px; border-radius: 999px; background: #F6ECE3; color: #2B1D17; font-size: 12px; line-height: 18px; font-weight: 500">Digital analytics / A/B</span></div>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+<h3 style="font-size: 16px; line-height: 24px; font-weight: 600">2 · Demo</h3>
+<p style="color: #7A6558">Local reproducibility, or a hosted dashboard from day one?</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><span style="padding: 2px 10px; border-radius: 999px; background: #E6F4EE; color: #0F6B4A; font-size: 12px; line-height: 18px; font-weight: 500">Recommended for MVP: local reproducibility</span><span style="padding: 2px 10px; border-radius: 999px; background: #F6ECE3; color: #2B1D17; font-size: 12px; line-height: 18px; font-weight: 500">Hosted dashboard</span></div>
+</div>
+</div>
+<p style="color: #7A6558">The financial semantics (status, refund and date rules) must also be confirmed before any code is written. See the Data &amp; Metrics page.</p>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<div><p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Change log</p><h2 style="font-size: 18px; line-height: 26px; font-weight: 600">Version history</h2></div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 16px 24px; display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: baseline">
+<span style="font-weight: 600">v0.1</span>
+<span style="flex: 1 1 360px">Initial product, architecture, data-contract, quality and design-system blueprint. Nothing in this document implies working implementation yet.</span>
+</div>
+</section>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:1900}}">
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+
+
+</body></html>

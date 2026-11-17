@@ -1,0 +1,31 @@
+name: ember
+version: "0.1.0"
+config-version: 2
+profile: ember
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  ember:
+    +materialized: table          # ADR-004: full refresh first
+    staging:
+      +schema: staging
+      +materialized: view
+    intermediate:
+      +schema: intermediate
+      +materialized: view
+    marts:
+      +schema: marts
+      +materialized: table
+
+# Data-quality policy (docs/data-contracts.md): tests default to severity error
+# (= critical). Warnings are declared explicitly with severity: warn.
+data_tests:
+  +severity: error
+  +store_failures: true
+  +schema: dq_failures

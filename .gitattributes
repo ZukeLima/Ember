@@ -1,0 +1,9 @@
+# Reference blueprints and visual documentation are not application source.
+docs/blueprint/** linguist-documentation
+docs/images/*.html linguist-documentation
+
+# HTML is used exclusively for reference documentation in this repository.
+*.html -linguist-detectable
+
+# dbt SQL models, macros and data tests are application source.
+*.sql linguist-detectable

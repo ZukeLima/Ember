@@ -1,0 +1,105 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality-gate:
+    name: lint · unit · pipeline on clean fixture
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      # 1 · pinned dependencies (uv.lock)
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - run: uv python install 3.12
+      - run: uv sync --frozen
+
+      - name: Lint
+        run: uv run ruff check . && uv run ruff format --check .
+
+      # 2 · tiny fixed-seed fixture
+      - name: Generate fixture
+        run: uv run ember generate --profile tiny --out ci/tiny
+
+      # 3 · unit tests + isolated ingestion
+      - name: Unit tests
+        run: uv run pytest tests --ignore=tests/scenarios -p no:cacheprovider
+
+      # 4-5 · dbt build (models, contracts, reconciliation) + publish gate
+      - name: Pipeline on clean fixture
+        run: uv run ember build --src ci/tiny --db ci/work.duckdb --published ci/published.duckdb --fresh
+
+      - name: Validate run artifact
+        run: |
+          uv run python - <<'EOF'
+          import json, sys
+          run = json.load(open("ci/last_run.json"))
+          assert run["status"] == "ok", run
+          assert run["test_status"] in ("all_critical_passed", "warnings"), run
+          assert run["stages"]["publish"]["row_counts"]["mart_kpi_total"] == 1
+          print("run artifact OK:", {k: run[k] for k in ("status", "test_status", "last_successful_run_at")})
+          EOF
+
+      # 6 · sanitized diagnostics (synthetic data only)
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: run-artifacts
+          path: |
+            ci/last_run.json
+            analytics/target/run_results.json
+          if-no-files-found: ignore
+
+  scenarios:
+    name: nine data-contract scenarios
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - run: uv python install 3.12
+      - run: uv sync --frozen
+      - run: uv run pytest tests/scenarios -p no:cacheprovider
+
+  dirty-fixture-must-fail:
+    name: quality gate blocks the dirty fixture (expected failure)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - run: uv python install 3.12
+      - run: uv sync --frozen
+      - run: uv run ember generate --profile dirty --out ci/dirty
+      - name: Build must fail and publish nothing
+        run: |
+          set +e
+          uv run ember build --src ci/dirty --db ci/dirty.duckdb --published ci/dirty_published.duckdb --fresh
+          code=$?
+          set -e
+          test "$code" -ne 0 || { echo "expected the dirty fixture to fail the gate"; exit 1; }
+          test ! -f ci/dirty_published.duckdb || { echo "dirty data was published"; exit 1; }
+          uv run python - <<'EOF'
+          import json
+          run = json.load(open("ci/last_run.json"))
+          failed = {f["test"] for f in run["stages"]["dbt"]["failures"]}
+          expected = {"assert_no_conflicting_order_snapshots", "assert_refunds_within_item_value",
+                      "non_negative_stg_order_items_unit_price"}
+          missing = expected - failed
+          assert not missing, f"gate did not catch: {missing}"
+          print("gate caught:", sorted(failed))
+          EOF

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<title>Ember: Product</title>
+<script src="492f79ae-e0ce-4092-94e9-96e2b4375bdf"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#FFF7F0;color:#2B1D17;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:14px;line-height:22px}
+a{color:#EA6A12}a:hover{color:#B84A0B}
+h1,h2,h3,p,ul,ol{margin:0}
+ul,ol{padding-left:20px}
+li+li{margin-top:4px}
+table{width:100%;border-collapse:collapse;font-size:14px;line-height:22px}
+th{text-align:left;font-size:12px;line-height:18px;font-weight:500;color:#7A6558;padding:10px 16px;border-bottom:1px solid #F1E4D9;background:#FFFFFF;white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid #F1E4D9;vertical-align:top}
+tr:last-child td{border-bottom:0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;background:#F6ECE3;padding:1px 6px;border-radius:6px}
+</style>
+</helmet>
+<div style="background: #FFF7F0; min-height: 900px">
+<header style="background: #FFFFFF; border-bottom: 1px solid #F1E4D9">
+<div style="max-width: 1120px; margin: 0 auto; padding: 12px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 8px; font-size: 18px; line-height: 26px; font-weight: 600; color: #2B1D17; text-decoration: none"><svg aria-hidden="true" width="24" height="24" sc-camel-view-box="0 0 24 24" fill="none" stroke="#EA6A12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h5l3-7 4 14 3-7h5"></path></svg><span>Ember</span></a>
+<nav style="display: flex; flex-wrap: wrap; gap: 4px">
+<a href="Main.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Overview</a>
+<a href="Product.dc.html" style="padding: 11px 12px; border-radius: 8px; background: #FBEADB; color: #B84A0B; font-weight: 500; text-decoration: none">Product</a>
+<a href="Architecture.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Architecture</a>
+<a href="Data-Metrics.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Data &amp; Metrics</a>
+<a href="Design-System.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Design system</a>
+<a href="Sales-Overview.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Sales screen</a>
+<a href="Operations.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Operations</a>
+</nav>
+</div>
+</header>
+<main style="max-width: 1120px; margin: 0 auto; padding: 56px 32px 96px; display: flex; flex-direction: column; gap: 56px">
+
+<section style="display: flex; flex-direction: column; gap: 12px">
+<p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">docs/product.md · v0.1 · §1 and §2</p>
+<h1 style="font-size: 28px; line-height: 36px; font-weight: 600">Product</h1>
+<p style="max-width: 720px; color: #7A6558">Why Ember exists, who it serves, what the MVP must prove, and how delivery is sliced.</p>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<div><p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">1 · Executive brief (PRD)</p><h2 style="font-size: 18px; line-height: 26px; font-weight: 600">Problem and vision</h2></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); gap: 16px">
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 8px"><h3 style="font-size: 16px; line-height: 24px; font-weight: 600">Problem</h3><p>An e-commerce operation has customer, order, item, payment and refund data, but its teams cannot safely compare revenue and conversion metrics because records may be duplicated, statuses change after purchase, and KPI definitions differ.</p></div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 8px"><h3 style="font-size: 16px; line-height: 24px; font-weight: 600">Product vision</h3><p>Deliver a small, trustworthy analytics platform in which revenue can be traced from source records through tested transformation models to a dashboard with documented definitions and freshness.</p></div>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<div><h2 style="font-size: 18px; line-height: 26px; font-weight: 600">Users and jobs-to-be-done</h2></div>
+<div style="overflow-x: auto; background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px">
+<sc-raw-table>
+<sc-raw-thead><sc-raw-tr><sc-raw-th>Persona</sc-raw-th><sc-raw-th>Job</sc-raw-th><sc-raw-th>Evidence of success</sc-raw-th></sc-raw-tr></sc-raw-thead>
+<sc-raw-tbody>
+<sc-raw-tr><sc-raw-td style="font-weight: 500">Business analyst</sc-raw-td><sc-raw-td>Analyze sales by day, product and customer segment</sc-raw-td><sc-raw-td>Consistent metrics across dashboard and SQL</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td style="font-weight: 500">Finance stakeholder</sc-raw-td><sc-raw-td>Reconcile approved sales, cancellations and refunds</sc-raw-td><sc-raw-td>Every aggregate can be explained at order level</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td style="font-weight: 500">Analytics engineer</sc-raw-td><sc-raw-td>Safely rerun and change transformations</sc-raw-td><sc-raw-td>Deterministic pipeline, tests, clear lineage and runbook</sc-raw-td></sc-raw-tr>
+</sc-raw-tbody>
+</sc-raw-table>
+</div>
+</section>
+
+<section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); gap: 16px">
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="font-size: 18px; line-height: 26px; font-weight: 600">Goals (MVP)</h2>
+<ol>
+<li>Reproducible ingestion of synthetic data into local DuckDB.</li>
+<li>Tested dbt staging and dimensional marts.</li>
+<li>Explicit financial metric contracts and reconciliation.</li>
+<li>Dashboard with date/product filters, freshness status and quality warnings.</li>
+<li>CI that validates the project from a clean checkout.</li>
+<li>Documentation of trade-offs, lineage and recovery steps.</li>
+</ol>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="font-size: 18px; line-height: 26px; font-weight: 600">Non-goals (MVP)</h2>
+<ul>
+<li>Real-time streaming, Kubernetes, paid cloud infrastructure or login/roles.</li>
+<li>Production-grade personal-data handling or a public multi-tenant service.</li>
+<li>ML recommendations, marketing attribution or mobile app.</li>
+<li>Payment processing and operational order management.</li>
+</ul>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<div><h2 style="font-size: 18px; line-height: 26px; font-weight: 600">Success metrics and release gates</h2></div>
+<div style="overflow-x: auto; background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px">
+<sc-raw-table>
+<sc-raw-thead><sc-raw-tr><sc-raw-th>Metric</sc-raw-th><sc-raw-th>MVP target / verification</sc-raw-th></sc-raw-tr></sc-raw-thead>
+<sc-raw-tbody>
+<sc-raw-tr><sc-raw-td style="font-weight: 500">Reproducibility</sc-raw-td><sc-raw-td>A documented command sequence creates the whole environment from clean checkout</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td style="font-weight: 500">Referential integrity</sc-raw-td><sc-raw-td>All accepted order items reference a valid order; invalid records are quarantined or stop publication</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td style="font-weight: 500">Idempotency</sc-raw-td><sc-raw-td>Running ingestion + transformation twice with unchanged inputs yields the same business results</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td style="font-weight: 500">Financial reconciliation</sc-raw-td><sc-raw-td>Net revenue equals eligible item revenue minus recognized refunds, within currency rounding precision</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td style="font-weight: 500">Quality gate</sc-raw-td><sc-raw-td>CI fails for critical contract violations and passes with clean fixtures</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td style="font-weight: 500">Observability</sc-raw-td><sc-raw-td>Last successful run, row counts and test status are inspectable</sc-raw-td></sc-raw-tr>
+</sc-raw-tbody>
+</sc-raw-table>
+</div>
+<p style="color: #7A6558">No numeric latency or throughput SLO is committed until the sample data volume and target machine are measured.</p>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<div><p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">2 · Product scope and delivery</p><h2 style="font-size: 18px; line-height: 26px; font-weight: 600">MVP user stories</h2></div>
+<div style="overflow-x: auto; background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px">
+<sc-raw-table>
+<sc-raw-thead><sc-raw-tr><sc-raw-th>ID</sc-raw-th><sc-raw-th>Priority</sc-raw-th><sc-raw-th>Story</sc-raw-th><sc-raw-th>Acceptance criteria</sc-raw-th></sc-raw-tr></sc-raw-thead>
+<sc-raw-tbody>
+<sc-raw-tr><sc-raw-td style="font-weight: 500; white-space: nowrap">US-01</sc-raw-td><sc-raw-td><span style="padding: 2px 10px; border-radius: 999px; background: #FBEADB; color: #B84A0B; font-size: 12px; line-height: 18px; font-weight: 500">P0</span></sc-raw-td><sc-raw-td>As an engineer, I want deterministic synthetic source data</sc-raw-td><sc-raw-td>A fixed seed produces identical files; includes orders, customers, products, order_items and refunds</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td style="font-weight: 500; white-space: nowrap">US-02</sc-raw-td><sc-raw-td><span style="padding: 2px 10px; border-radius: 999px; background: #FBEADB; color: #B84A0B; font-size: 12px; line-height: 18px; font-weight: 500">P0</span></sc-raw-td><sc-raw-td>As an engineer, I want to load raw data safely</sc-raw-td><sc-raw-td>Each source has ingestion timestamp, source identifier and batch ID; retries do not silently duplicate business keys</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td style="font-weight: 500; white-space: nowrap">US-03</sc-raw-td><sc-raw-td><span style="padding: 2px 10px; border-radius: 999px; background: #FBEADB; color: #B84A0B; font-size: 12px; line-height: 18px; font-weight: 500">P0</span></sc-raw-td><sc-raw-td>As an analyst, I want validated staging models</sc-raw-td><sc-raw-td>Types, normalization, deduplication and business keys documented; dbt tests run</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td style="font-weight: 500; white-space: nowrap">US-04</sc-raw-td><sc-raw-td><span style="padding: 2px 10px; border-radius: 999px; background: #FBEADB; color: #B84A0B; font-size: 12px; line-height: 18px; font-weight: 500">P0</span></sc-raw-td><sc-raw-td>As an analyst, I want a dimensional mart</sc-raw-td><sc-raw-td>Facts and dimensions define grain, joins and slowly changing attributes policy</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td style="font-weight: 500; white-space: nowrap">US-05</sc-raw-td><sc-raw-td><span style="padding: 2px 10px; border-radius: 999px; background: #FBEADB; color: #B84A0B; font-size: 12px; line-height: 18px; font-weight: 500">P0</span></sc-raw-td><sc-raw-td>As Finance, I want trustworthy revenue</sc-raw-td><sc-raw-td>Gross, cancelled, refunded and net measures have SQL-level reconciliation tests</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td style="font-weight: 500; white-space: nowrap">US-06</sc-raw-td><sc-raw-td><span style="padding: 2px 10px; border-radius: 999px; background: #FBEADB; color: #B84A0B; font-size: 12px; line-height: 18px; font-weight: 500">P0</span></sc-raw-td><sc-raw-td>As an engineer, I want failures to be visible</sc-raw-td><sc-raw-td>A critical test fails the pipeline; error message points to failing model and records</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td style="font-weight: 500; white-space: nowrap">US-07</sc-raw-td><sc-raw-td><span style="padding: 2px 10px; border-radius: 999px; background: #F6ECE3; color: #2B1D17; font-size: 12px; line-height: 18px; font-weight: 500">P1</span></sc-raw-td><sc-raw-td>As a stakeholder, I want to explore KPIs</sc-raw-td><sc-raw-td>Dashboard supports date/product filters; shows KPIs and daily trend without duplicate aggregation</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td style="font-weight: 500; white-space: nowrap">US-08</sc-raw-td><sc-raw-td><span style="padding: 2px 10px; border-radius: 999px; background: #F6ECE3; color: #2B1D17; font-size: 12px; line-height: 18px; font-weight: 500">P1</span></sc-raw-td><sc-raw-td>As an engineer, I want CI validation</sc-raw-td><sc-raw-td>Pull request workflow installs dependencies and runs lint/build/test on sample data</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td style="font-weight: 500; white-space: nowrap">US-09</sc-raw-td><sc-raw-td><span style="padding: 2px 10px; border-radius: 999px; background: #F6ECE3; color: #2B1D17; font-size: 12px; line-height: 18px; font-weight: 500">P1</span></sc-raw-td><sc-raw-td>As a new contributor, I want a runbook</sc-raw-td><sc-raw-td>Setup, architecture, troubleshooting, data dictionary and ADRs exist</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td style="font-weight: 500; white-space: nowrap">US-10</sc-raw-td><sc-raw-td><span style="padding: 2px 10px; border-radius: 999px; background: #F6ECE3; color: #2B1D17; font-size: 12px; line-height: 18px; font-weight: 500">P2</span></sc-raw-td><sc-raw-td>As an analyst, I want a historical correction demo</sc-raw-td><sc-raw-td>Late cancellation/refund updates results correctly after reprocessing</sc-raw-td></sc-raw-tr>
+</sc-raw-tbody>
+</sc-raw-table>
+</div>
+</section>
+
+<section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); gap: 16px">
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 8px"><h3 style="font-size: 16px; line-height: 24px; font-weight: 600">Definition of Ready</h3><p>Every story has a scenario, input/output example, grain and dependencies, explicit acceptance tests and known edge cases. Financial story definitions must be signed off before implementation.</p></div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 8px"><h3 style="font-size: 16px; line-height: 24px; font-weight: 600">Definition of Done</h3><p>Implementation merged, local verification run, automated test added, docs updated, CI green and demo evidence captured. A pretty dashboard without validated models is <b>not done</b>.</p></div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<div><h2 style="font-size: 18px; line-height: 26px; font-weight: 600">Suggested 3-sprint plan</h2><p style="color: #7A6558">Timeboxes are estimates.</p></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 16px">
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 8px"><p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Sprint 1 · 2–3 days</p><h3 style="font-size: 16px; line-height: 24px; font-weight: 600">Foundation</h3><p>Repo bootstrap, generator, raw load, dbt staging, source contracts.</p><p style="color: #7A6558"><b style="color: #2B1D17">Demo:</b> deterministic rerun and invalid-record detection.</p></div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 8px"><p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Sprint 2 · 3–4 days</p><h3 style="font-size: 16px; line-height: 24px; font-weight: 600">Trusted metrics</h3><p>Dimensional models, cancellations/refunds, reconciliation, tests and reprocessing.</p><p style="color: #7A6558"><b style="color: #2B1D17">Demo:</b> changed order status updates metrics without duplicates.</p></div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 8px"><p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Sprint 3 · 2–3 days</p><h3 style="font-size: 16px; line-height: 24px; font-weight: 600">Product surface</h3><p>Streamlit dashboard, freshness, CI, README, architecture decision records.</p><p style="color: #7A6558"><b style="color: #2B1D17">Demo:</b> fresh install, test failure, recovery and KPI drill-down.</p></div>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<div><h2 style="font-size: 18px; line-height: 26px; font-weight: 600">Dependencies / critical path</h2></div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px">
+<span style="padding: 8px 16px; border-radius: 8px; background: #F6ECE3; font-weight: 500">Metric definitions</span><span aria-hidden="true" style="color: #7A6558">→</span>
+<span style="padding: 8px 16px; border-radius: 8px; background: #F6ECE3; font-weight: 500">Synthetic source contracts</span><span aria-hidden="true" style="color: #7A6558">→</span>
+<span style="padding: 8px 16px; border-radius: 8px; background: #F6ECE3; font-weight: 500">Staging</span><span aria-hidden="true" style="color: #7A6558">→</span>
+<span style="padding: 8px 16px; border-radius: 8px; background: #F6ECE3; font-weight: 500">Marts</span><span aria-hidden="true" style="color: #7A6558">→</span>
+<span style="padding: 8px 16px; border-radius: 8px; background: #F6ECE3; font-weight: 500">Dashboard</span>
+</div>
+<p style="color: #7A6558">CI and documentation are continuous tracks, not a final-day task.</p>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<div><p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">7 · First implementation ticket</p><h2 style="font-size: 18px; line-height: 26px; font-weight: 600">US-01, Deterministic synthetic data generator and fixtures</h2></div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 4px"><p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Task</p><p>Build deterministic synthetic data generator and fixtures.</p></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Inputs</p><p>Configurable seed, base date and row counts.</p></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Outputs</p><p><code>customers</code>, <code>products</code>, <code>orders</code>, <code>order_items</code>, <code>refunds</code>, with a documented schema and a fixture containing duplicates, partial refunds, late updates and invalid foreign keys.</p></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Acceptance</p><p>Same seed/config → byte-identical sorted output; tests assert uniqueness in the canonical clean fixture and explicitly verify invalid fixtures; timestamps use UTC; no sensitive real data.</p></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Out of scope</p><p>dbt models, dashboard, cloud hosting.</p></div>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<div><h2 style="font-size: 18px; line-height: 26px; font-weight: 600">Release checklist</h2></div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 4px">
+<label style="display: flex; align-items: center; gap: 12px; min-height: 44px"><input type="checkbox" style="width: 18px; height: 18px; margin: 0">Product decisions approved</label>
+<label style="display: flex; align-items: center; gap: 12px; min-height: 44px"><input type="checkbox" style="width: 18px; height: 18px; margin: 0">Metric dictionary and source contracts reviewed</label>
+<label style="display: flex; align-items: center; gap: 12px; min-height: 44px"><input type="checkbox" style="width: 18px; height: 18px; margin: 0">All P0 stories accepted</label>
+<label style="display: flex; align-items: center; gap: 12px; min-height: 44px"><input type="checkbox" style="width: 18px; height: 18px; margin: 0">Full rebuild works from clean checkout</label>
+<label style="display: flex; align-items: center; gap: 12px; min-height: 44px"><input type="checkbox" style="width: 18px; height: 18px; margin: 0">CI green; intentional failing-fixture test documented</label>
+<label style="display: flex; align-items: center; gap: 12px; min-height: 44px"><input type="checkbox" style="width: 18px; height: 18px; margin: 0">Screens and empty/error states validated</label>
+<label style="display: flex; align-items: center; gap: 12px; min-height: 44px"><input type="checkbox" style="width: 18px; height: 18px; margin: 0">README includes demo, architecture, trade-offs and known limitations</label>
+</div>
+</section>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:3700}}">
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+
+
+</body></html>

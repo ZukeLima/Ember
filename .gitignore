@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# Data: synthetic fixtures under data/fixtures/ are committed; everything generated is not
+data/generated/
+*.duckdb
+*.duckdb.wal
+run_artifacts/
+
+# dbt
+analytics/target/
+analytics/dbt_packages/
+analytics/logs/
+analytics/.user.yml
+logs/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Env / OS / IDE
+.env
+.DS_Store
+.vscode/
+.idea/
+
+# CI scratch and run artifacts
+ci/
+data/last_run.json

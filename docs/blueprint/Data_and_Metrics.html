@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<title>Ember: Data and Metrics</title>
+<script src="7a5ccd0f-aa62-4f2c-bb93-d1f871172e13"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#FFF7F0;color:#2B1D17;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:14px;line-height:22px}
+a{color:#EA6A12}a:hover{color:#B84A0B}
+h1,h2,h3,p,ul,ol{margin:0}
+ul,ol{padding-left:20px}
+li+li{margin-top:4px}
+table{width:100%;border-collapse:collapse;font-size:14px;line-height:22px}
+th{text-align:left;font-size:12px;line-height:18px;font-weight:500;color:#7A6558;padding:10px 16px;border-bottom:1px solid #F1E4D9;background:#FFFFFF;white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid #F1E4D9;vertical-align:top}
+tr:last-child td{border-bottom:0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;background:#F6ECE3;padding:1px 6px;border-radius:6px}
+</style>
+</helmet>
+<div style="background: #FFF7F0; min-height: 900px">
+<header style="background: #FFFFFF; border-bottom: 1px solid #F1E4D9">
+<div style="max-width: 1120px; margin: 0 auto; padding: 12px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 8px; font-size: 18px; line-height: 26px; font-weight: 600; color: #2B1D17; text-decoration: none"><svg aria-hidden="true" width="24" height="24" sc-camel-view-box="0 0 24 24" fill="none" stroke="#EA6A12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h5l3-7 4 14 3-7h5"></path></svg><span>Ember</span></a>
+<nav style="display: flex; flex-wrap: wrap; gap: 4px">
+<a href="Main.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Overview</a>
+<a href="Product.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Product</a>
+<a href="Architecture.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Architecture</a>
+<a href="Data-Metrics.dc.html" style="padding: 11px 12px; border-radius: 8px; background: #FBEADB; color: #B84A0B; font-weight: 500; text-decoration: none">Data &amp; Metrics</a>
+<a href="Design-System.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Design system</a>
+<a href="Sales-Overview.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Sales screen</a>
+<a href="Operations.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Operations</a>
+</nav>
+</div>
+</header>
+<main style="max-width: 1120px; margin: 0 auto; padding: 56px 32px 96px; display: flex; flex-direction: column; gap: 56px">
+
+<section style="display: flex; flex-direction: column; gap: 12px">
+<p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">docs/data-contracts.md · docs/metrics.md · v0.1 · §4</p>
+<h1 style="font-size: 28px; line-height: 36px; font-weight: 600">Data &amp; Metrics</h1>
+<p style="max-width: 720px; color: #7A6558">Source contracts, dimensional models, the metric dictionary and the quality rules that decide whether anything gets published.</p>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<div><p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Source contracts</p><h2 style="font-size: 18px; line-height: 26px; font-weight: 600">Synthetic source tables</h2></div>
+<div style="overflow-x: auto; background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px">
+<sc-raw-table>
+<sc-raw-thead><sc-raw-tr><sc-raw-th>Entity</sc-raw-th><sc-raw-th>Grain / primary key</sc-raw-th><sc-raw-th>Required fields</sc-raw-th><sc-raw-th>Important edge case</sc-raw-th></sc-raw-tr></sc-raw-thead>
+<sc-raw-tbody>
+<sc-raw-tr><sc-raw-td><code>customers</code></sc-raw-td><sc-raw-td>1 row/customer; <code>customer_id</code></sc-raw-td><sc-raw-td>customer_id, signup_at, segment</sc-raw-td><sc-raw-td>Missing segment allowed and labeled <code>unknown</code></sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td><code>products</code></sc-raw-td><sc-raw-td>1 row/product; <code>product_id</code></sc-raw-td><sc-raw-td>product_id, category, list_price</sc-raw-td><sc-raw-td>Product description changes</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td><code>orders</code></sc-raw-td><sc-raw-td>latest snapshot/order; <code>order_id</code></sc-raw-td><sc-raw-td>order_id, customer_id, created_at, status, updated_at</sc-raw-td><sc-raw-td>Status changes after order creation</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td><code>order_items</code></sc-raw-td><sc-raw-td>1 row/item; <code>order_item_id</code></sc-raw-td><sc-raw-td>order_item_id, order_id, product_id, quantity, unit_price</sc-raw-td><sc-raw-td>Multiple items per order; no double-counting</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td><code>refunds</code></sc-raw-td><sc-raw-td>1 row/refund transaction; <code>refund_id</code></sc-raw-td><sc-raw-td>refund_id, order_item_id, refunded_at, amount, status</sc-raw-td><sc-raw-td>Partial refunds and repeated delivery</sc-raw-td></sc-raw-tr>
+</sc-raw-tbody>
+</sc-raw-table>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 8px"><h3 style="font-size: 16px; line-height: 24px; font-weight: 600">Contract assumptions</h3><p>Monetary fields are decimal with two places in a single currency (BRL); timestamps are stored in UTC; all business IDs are strings; <code>quantity &gt; 0</code>; unit price and refund amount are nonnegative. Refunds are attached to items to support correct allocation.</p></div>
+<div style="background: #FBF1DF; border: 1px solid #EBD9AE; border-radius: 18px; padding: 16px 24px; display: flex; gap: 16px; align-items: flex-start">
+<span aria-hidden="true" style="flex: none; width: 24px; height: 24px; border-radius: 999px; background: #7A5208; color: #FFFFFF; font-size: 14px; line-height: 24px; font-weight: 600; text-align: center">!</span>
+<p><b>Modeling gap to settle before code.</b> The MVP does not model payment authorization, taxes, shipping, discounts or chargebacks. Therefore its <code>gross_revenue</code> is <b>eligible merchandise sales</b> rather than accounting revenue recognized under a formal standard.</p>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<div><p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Dimensional model</p><h2 style="font-size: 18px; line-height: 26px; font-weight: 600">Proposed marts</h2></div>
+<div style="overflow-x: auto; background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px">
+<sc-raw-table>
+<sc-raw-thead><sc-raw-tr><sc-raw-th>Model</sc-raw-th><sc-raw-th>Grain</sc-raw-th><sc-raw-th>Measures / attributes</sc-raw-th></sc-raw-tr></sc-raw-thead>
+<sc-raw-tbody>
+<sc-raw-tr><sc-raw-td><code>dim_customer</code></sc-raw-td><sc-raw-td>customer_id</sc-raw-td><sc-raw-td>signup_date, segment</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td><code>dim_product</code></sc-raw-td><sc-raw-td>product_id</sc-raw-td><sc-raw-td>category, product metadata</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td><code>fct_order_item</code></sc-raw-td><sc-raw-td>order_item_id</sc-raw-td><sc-raw-td>order_id, customer_id, product_id, order_date, quantity, item_amount, order_status</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td><code>fct_refund</code></sc-raw-td><sc-raw-td>refund_id</sc-raw-td><sc-raw-td>order_item_id, refund_date, refund_amount, refund_status</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td><code>mart_daily_sales</code></sc-raw-td><sc-raw-td>date × product_id</sc-raw-td><sc-raw-td>eligible_gross, refunded_amount, net_sales, orders_count</sc-raw-td></sc-raw-tr>
+</sc-raw-tbody>
+</sc-raw-table>
+</div>
+<div style="background: #FBF1DF; border: 1px solid #EBD9AE; border-radius: 18px; padding: 16px 24px; display: flex; gap: 16px; align-items: flex-start">
+<span aria-hidden="true" style="flex: none; width: 24px; height: 24px; border-radius: 999px; background: #7A5208; color: #FFFFFF; font-size: 14px; line-height: 24px; font-weight: 600; text-align: center">!</span>
+<p><b>Join warning.</b> Never join order-item facts directly to multiple refunds and then sum item amounts; that fanout inflates gross sales. First aggregate refunds to item grain or calculate measures in separate aggregates and join at their declared common grain.</p>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px"><div><p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Metric contract</p><h2 style="font-size: 18px; line-height: 26px; font-weight: 600">Proposed metric dictionary</h2></div><span style="padding: 2px 10px; border-radius: 999px; background: #FBF1DF; color: #7A5208; font-size: 12px; line-height: 18px; font-weight: 500">Requires approval</span></div>
+<div style="overflow-x: auto; background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px">
+<sc-raw-table>
+<sc-raw-thead><sc-raw-tr><sc-raw-th>Metric</sc-raw-th><sc-raw-th>Definition</sc-raw-th><sc-raw-th>Exclusions / notes</sc-raw-th></sc-raw-tr></sc-raw-thead>
+<sc-raw-tbody>
+<sc-raw-tr><sc-raw-td><code>eligible_gross</code></sc-raw-td><sc-raw-td>Sum(<code>quantity * unit_price</code>) for order items whose latest order status is <code>completed</code></sc-raw-td><sc-raw-td><code>pending</code>/<code>cancelled</code> excluded</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td><code>refunded_amount</code></sc-raw-td><sc-raw-td>Sum successful refunds linked to eligible completed order items</sc-raw-td><sc-raw-td>Pending/failed refunds excluded; cap check against eligible item value</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td><code>net_sales</code></sc-raw-td><sc-raw-td><code>eligible_gross - refunded_amount</code></sc-raw-td><sc-raw-td>Financial precision fixed at 2 decimal places</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td><code>completed_orders</code></sc-raw-td><sc-raw-td>Count distinct completed <code>order_id</code></sc-raw-td><sc-raw-td>Never count order items as orders</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td><code>average_order_value</code></sc-raw-td><sc-raw-td><code>net_sales / completed_orders</code></sc-raw-td><sc-raw-td>NULL if denominator zero</sc-raw-td></sc-raw-tr>
+</sc-raw-tbody>
+</sc-raw-table>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 8px"><h3 style="font-size: 16px; line-height: 24px; font-weight: 600">Time semantics, a material business decision</h3><p>The default dashboard is <b>order-cohort reporting</b>: refunds adjust the original order's date, so historical net sales may change as late refunds arrive. A refund-cashflow view by refund date is explicitly out of scope for MVP.</p></div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<div><p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Data-quality policy</p><h2 style="font-size: 18px; line-height: 26px; font-weight: 600">Severity and outcome</h2></div>
+<div style="overflow-x: auto; background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px">
+<sc-raw-table>
+<sc-raw-thead><sc-raw-tr><sc-raw-th>Severity</sc-raw-th><sc-raw-th>Conditions</sc-raw-th><sc-raw-th>Outcome</sc-raw-th></sc-raw-tr></sc-raw-thead>
+<sc-raw-tbody>
+<sc-raw-tr><sc-raw-td><span style="padding: 2px 10px; border-radius: 999px; background: #FBE7E7; color: #A33232; font-size: 12px; line-height: 18px; font-weight: 500">Critical</span></sc-raw-td><sc-raw-td>Duplicate primary keys after dedupe, missing required foreign keys, negative amounts, financial reconciliation mismatch</sc-raw-td><sc-raw-td>Fail build and do not publish marts</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td><span style="padding: 2px 10px; border-radius: 999px; background: #FBF1DF; color: #7A5208; font-size: 12px; line-height: 18px; font-weight: 500">Warning</span></sc-raw-td><sc-raw-td>Missing optional segment, delayed batch, unexpected but parseable status</sc-raw-td><sc-raw-td>Report warning; map optional values to <code>unknown</code></sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td><span style="padding: 2px 10px; border-radius: 999px; background: #E6F4EE; color: #0F6B4A; font-size: 12px; line-height: 18px; font-weight: 500">Accepted</span></sc-raw-td><sc-raw-td>Out-of-order deliveries with newer <code>updated_at</code>, valid partial refunds</sc-raw-td><sc-raw-td>Deterministic upsert/rebuild</sc-raw-td></sc-raw-tr>
+</sc-raw-tbody>
+</sc-raw-table>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); gap: 16px">
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 8px"><h3 style="font-size: 16px; line-height: 24px; font-weight: 600">Deterministic deduplication</h3><p>For source order snapshots, choose max <code>updated_at</code>, then a stable tie-breaker (<code>source_sequence</code>, then raw-record hash). If two conflicting values share the same business key and tie-breaker, fail rather than silently choose a row. The synthetic generator must include these fields.</p></div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 8px"><h3 style="font-size: 16px; line-height: 24px; font-weight: 600">Incremental implementation choice</h3><p>First implement full-refresh materialization and verify correctness. Only switch a model to incremental after tests prove late updates, deletions and replay are handled. Incremental processing is an optimization, not a requirement for the first release.</p></div>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<div><p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Test scenarios</p><h2 style="font-size: 18px; line-height: 26px; font-weight: 600">Nine cases the models must pass</h2></div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px">
+<ol>
+<li>Duplicated input batch → same final counts/sums after replay.</li>
+<li>Order transitions from <code>completed</code> to <code>cancelled</code> → its contribution disappears on reprocess.</li>
+<li>One order with three items → order count stays one.</li>
+<li>One item with two partial refunds → gross counted once, both valid refunds counted.</li>
+<li>Refund greater than item value → quality gate fails.</li>
+<li>Missing customer reference → quality gate fails.</li>
+<li>Zero completed orders → AOV is NULL, not division error.</li>
+<li>Late refund → original order date's net sales is corrected.</li>
+<li>Two conflicting snapshots at identical ordering keys → load rejected explicitly.</li>
+</ol>
+</div>
+</section>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:3500}}">
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+
+
+</body></html>

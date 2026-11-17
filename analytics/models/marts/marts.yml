@@ -1,0 +1,90 @@
+version: 2
+
+models:
+  - name: dim_customer
+    columns:
+      - name: customer_id
+        data_tests: [unique, not_null]
+      - name: segment
+        data_tests: [not_null]
+
+  - name: dim_product
+    columns:
+      - name: product_id
+        data_tests: [unique, not_null]
+      - name: category
+        data_tests: [not_null]
+
+  - name: fct_order_item
+    description: One row per order item with the order's latest status.
+    columns:
+      - name: order_item_id
+        data_tests: [unique, not_null]
+      - name: order_id
+        data_tests: [not_null]
+      - name: order_date
+        data_tests: [not_null]
+      - name: item_amount
+        data_tests: [not_null, non_negative]
+      - name: is_eligible
+        data_tests: [not_null]
+
+  - name: fct_refund
+    description: One row per refund; is_recognized marks refunds that reduce net sales.
+    columns:
+      - name: refund_id
+        data_tests: [unique, not_null]
+      - name: order_item_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('fct_order_item')
+                field: order_item_id
+      - name: refund_amount
+        data_tests: [not_null, non_negative]
+      - name: is_recognized
+        data_tests: [not_null]
+
+  - name: int_item_refunds
+    columns:
+      - name: order_item_id
+        data_tests: [unique, not_null]
+      - name: recognized_refund_amount
+        data_tests: [not_null, non_negative]
+
+  - name: mart_daily_sales
+    description: order_date × product_id, order-cohort view.
+    data_tests:
+      - unique:
+          column_name: "order_date || '|' || product_id"
+    columns:
+      - name: order_date
+        data_tests: [not_null]
+      - name: product_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_product')
+                field: product_id
+      - name: eligible_gross
+        data_tests: [not_null, non_negative]
+      - name: refunded_amount
+        data_tests: [not_null, non_negative]
+      - name: net_sales
+        data_tests: [not_null, non_negative]
+      - name: orders_count
+        data_tests: [positive]
+
+  - name: mart_kpi_total
+    description: Headline metrics over all published data (single row).
+    columns:
+      - name: eligible_gross
+        data_tests: [not_null, non_negative]
+      - name: refunded_amount
+        data_tests: [not_null, non_negative]
+      - name: net_sales
+        data_tests: [not_null, non_negative]
+      - name: completed_orders
+        data_tests: [not_null, non_negative]

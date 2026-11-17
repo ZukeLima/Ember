@@ -1,0 +1,9 @@
+# No secrets: a local DuckDB file. Override the path with EMBER_DB.
+ember:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "{{ env_var('EMBER_DB', '../data/ember.duckdb') }}"
+      schema: main
+      threads: 1

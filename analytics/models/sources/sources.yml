@@ -1,0 +1,35 @@
+version: 2
+
+sources:
+  - name: raw
+    description: >
+      Raw layer loaded by `ember ingest`. Append-only; every row carries
+      _ingested_at, _source_id and _batch_id. Values are kept as delivered
+      (text), typing happens in staging. See docs/data-contracts.md.
+    schema: raw
+    tables:
+      - name: customers
+        columns:
+          - name: customer_id
+            data_tests: [not_null]
+      - name: products
+        columns:
+          - name: product_id
+            data_tests: [not_null]
+      - name: orders
+        description: Order snapshots; several rows per order_id are expected.
+        columns:
+          - name: order_id
+            data_tests: [not_null]
+          - name: source_sequence
+            data_tests: [not_null]
+          - name: record_hash
+            data_tests: [not_null]
+      - name: order_items
+        columns:
+          - name: order_item_id
+            data_tests: [not_null]
+      - name: refunds
+        columns:
+          - name: refund_id
+            data_tests: [not_null]

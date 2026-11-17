@@ -1,0 +1,48 @@
+# Synthetic data generator configuration (US-01).
+# Everything here is an assumption of the fictional e-commerce domain.
+# Same file + same seed → byte-identical output.
+
+seed: 20260101
+base_date: "2026-01-01"      # first order date, UTC
+days: 14                     # order dates span [base_date, base_date + days)
+currency: BRL
+
+row_counts:
+  customers: 200
+  products: 40
+  orders: 600
+
+# Distributions (assumptions, documented so the data stays explainable)
+items_per_order:             # weights for 1,2,3,4 items
+  1: 0.55
+  2: 0.28
+  3: 0.12
+  4: 0.05
+
+order_status:                # latest status of an order
+  completed: 0.80
+  pending: 0.08
+  cancelled: 0.12
+
+late_update_share: 0.10      # share of orders with a status change after creation (extra snapshot)
+
+refunds:
+  share_of_completed_items: 0.08   # items that receive at least one refund
+  partial_share: 0.40              # of refunded items, share with a partial (not full) refund
+  second_partial_share: 0.25       # of partial refunds, share that gets a second partial refund
+  status:
+    succeeded: 0.85
+    pending: 0.08
+    failed: 0.07
+
+segments:                    # customer segments; null → "unknown" downstream
+  consumer: 0.60
+  business: 0.25
+  null: 0.15
+
+categories:
+  - electronics
+  - home
+  - fashion
+  - sports
+  - books

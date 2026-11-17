@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
+<style>
+  body { margin: 0; background: #fff; }
+  #wrap { width: 1120px; height: 860px; background: #fff; }
+  svg { font-family: 'Patrick Hand', 'Comic Sans MS', cursive; }
+  text { fill: #1b1b1b; }
+</style>
+</head>
+<body>
+<div id="wrap"><svg id="svg" width="1120" height="860" viewBox="0 0 1120 860"></svg></div>
+<script>
+const svg = document.getElementById('svg');
+const rc = rough.svg(svg);
+const NS = 'http://www.w3.org/2000/svg';
+const COLORS = { yellow: '#fff3a6', blue: '#a6d8ff', pink: '#ffc9c9', grey: '#f1f1f1' };
+
+const nodes = {
+  BP:    { x: 560, y: 52,  w: 230, h: 58, c: 'yellow', t: ['Blueprint v0.1'] },
+  PD:    { x: 125, y: 190, w: 215, h: 68, c: 'yellow', t: ['Product Decisions', 'ADR-001 … ADR-005'] },
+  MD:    { x: 405, y: 190, w: 195, h: 68, c: 'yellow', t: ['Metric', 'Dictionary'] },
+  DC:    { x: 690, y: 190, w: 195, h: 68, c: 'yellow', t: ['Data', 'Contracts'] },
+  DS:    { x: 975, y: 190, w: 195, h: 68, c: 'yellow', t: ['Design', 'System'] },
+  PY:    { x: 250, y: 335, w: 240, h: 68, c: 'blue',   t: ['Python', 'generate · ingest'] },
+  DBT:   { x: 690, y: 335, w: 250, h: 68, c: 'blue',   t: ['dbt', 'staging · marts · 96 tests'] },
+  RAW:   { x: 250, y: 480, w: 215, h: 58, c: 'pink',   t: ['Raw layer (DuckDB)'] },
+  GATE:  { x: 690, y: 480, w: 230, h: 68, c: 'blue',   t: ['Publication Gate'] },
+  FAIL:  { x: 515, y: 770, w: 245, h: 72, c: 'grey',   t: ['On failure: exit 1', 'rows reported · nothing published'] },
+  PUB:   { x: 705, y: 625, w: 215, h: 58, c: 'pink',   t: ['Published Marts'] },
+  DASH:  { x: 975, y: 480, w: 205, h: 68, c: 'blue',   t: ['Streamlit', 'Dashboard'] },
+  SCR:   { x: 975, y: 625, w: 205, h: 58, c: 'pink',   t: ['Sales Overview'] },
+  TESTS: { x: 250, y: 625, w: 240, h: 68, c: 'blue',   t: ['pytest · 59 tests', '9 end-to-end scenarios'] },
+  CI:    { x: 235, y: 770, w: 240, h: 68, c: 'blue',   t: ['CI · clean must pass', 'dirty must fail'] },
+};
+
+const edges = [
+  ['BP', 'PD', 'Defines', -14],
+  ['BP', 'MD', 'Defines', -14],
+  ['BP', 'DC', 'Defines', 14],
+  ['BP', 'DS', 'Defines', 14],
+  ['PD', 'PY', 'Guides', -16],
+  ['MD', 'DBT', 'Implemented in', -16],
+  ['DC', 'DBT', 'Enforced by', 18],
+  ['DS', 'DASH', 'Guides', 18],
+  ['PY', 'RAW', 'Loads', 16],
+  ['RAW', 'DBT', 'Transformed by', -16],
+  ['DBT', 'GATE', 'Runs tests', 18],
+  ['GATE', 'PUB', 'All critical pass', 18],
+  ['GATE', 'FAIL', 'Critical failure', 80, true, [-110, 34], [65, -36]],
+  ['PUB', 'DASH', 'Read-only', 18],
+  ['DASH', 'SCR', 'Renders', 18],
+  ['TESTS', 'GATE', 'Exercise end-to-end', -16],
+  ['CI', 'TESTS', 'Runs', 16],
+];
+
+function clip(n, px, py) {
+  // point on n's border toward (px,py)
+  const dx = px - n.x, dy = py - n.y;
+  const hw = n.w / 2, hh = n.h / 2;
+  const sx = dx === 0 ? Infinity : hw / Math.abs(dx);
+  const sy = dy === 0 ? Infinity : hh / Math.abs(dy);
+  const s = Math.min(sx, sy);
+  return [n.x + dx * s, n.y + dy * s];
+}
+
+function text(x, y, lines, size, bold, anchor) {
+  const t = document.createElementNS(NS, 'text');
+  t.setAttribute('x', x); t.setAttribute('text-anchor', anchor || 'middle');
+  t.setAttribute('font-size', size);
+  if (bold) t.setAttribute('font-weight', '700');
+  const lh = size * 1.15;
+  const y0 = y - ((lines.length - 1) * lh) / 2 + size * 0.35;
+  lines.forEach((l, i) => {
+    const ts = document.createElementNS(NS, 'tspan');
+    ts.setAttribute('x', x); ts.setAttribute('y', y0 + i * lh); ts.textContent = l;
+    t.appendChild(ts);
+  });
+  svg.appendChild(t);
+  return t;
+}
+
+// edges first (under nodes)
+for (const [a, b, label, off, dashed, sa, ta] of edges) {
+  const A = nodes[a], B = nodes[b];
+  const [x1, y1] = sa ? [A.x + sa[0], A.y + sa[1]] : clip(A, B.x, B.y);
+  const [x2, y2] = ta ? [B.x + ta[0], B.y + ta[1]] : clip(B, A.x, A.y);
+  const opts = { stroke: '#1b1b1b', strokeWidth: 1.8, roughness: 1.3, bowing: 1.2 };
+  if (dashed) opts.strokeLineDash = [8, 6];
+  svg.appendChild(rc.line(x1, y1, x2, y2, opts));
+  // arrowhead
+  const ang = Math.atan2(y2 - y1, x2 - x1), L = 13, w = 0.45;
+  svg.appendChild(rc.line(x2, y2, x2 - L * Math.cos(ang - w), y2 - L * Math.sin(ang - w), { stroke: '#1b1b1b', strokeWidth: 1.8, roughness: 1 }));
+  svg.appendChild(rc.line(x2, y2, x2 - L * Math.cos(ang + w), y2 - L * Math.sin(ang + w), { stroke: '#1b1b1b', strokeWidth: 1.8, roughness: 1 }));
+  // label with white halo
+  const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+  const nx = -(y2 - y1), ny = (x2 - x1), nl = Math.hypot(nx, ny);
+  const lx = mx + (nx / nl) * off, ly = my + (ny / nl) * off;
+  const halo = text(lx, ly, [label], 19, false);
+  halo.setAttribute('stroke', '#fff'); halo.setAttribute('stroke-width', '7'); halo.setAttribute('paint-order', 'stroke');
+}
+
+for (const n of Object.values(nodes)) {
+  svg.appendChild(rc.rectangle(n.x - n.w / 2, n.y - n.h / 2, n.w, n.h, {
+    fill: COLORS[n.c], fillStyle: 'solid', stroke: '#1b1b1b', strokeWidth: 1.8, roughness: 1.4,
+    strokeLineDash: n.c === 'grey' ? [7, 5] : undefined,
+  }));
+  text(n.x, n.y, n.t, n.t.length > 1 ? 20 : 22, true);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<title>Ember: Architecture</title>
+<script src="2fa1c140-e4f7-4794-a308-3403fd82a5a7"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#FFF7F0;color:#2B1D17;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:14px;line-height:22px}
+a{color:#EA6A12}a:hover{color:#B84A0B}
+h1,h2,h3,p,ul,ol,pre{margin:0}
+ul,ol{padding-left:20px}
+li+li{margin-top:4px}
+table{width:100%;border-collapse:collapse;font-size:14px;line-height:22px}
+th{text-align:left;font-size:12px;line-height:18px;font-weight:500;color:#7A6558;padding:10px 16px;border-bottom:1px solid #F1E4D9;background:#FFFFFF;white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid #F1E4D9;vertical-align:top}
+tr:last-child td{border-bottom:0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;background:#F6ECE3;padding:1px 6px;border-radius:6px}
+</style>
+</helmet>
+<div style="background: #FFF7F0; min-height: 900px">
+<header style="background: #FFFFFF; border-bottom: 1px solid #F1E4D9">
+<div style="max-width: 1120px; margin: 0 auto; padding: 12px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 8px; font-size: 18px; line-height: 26px; font-weight: 600; color: #2B1D17; text-decoration: none"><svg aria-hidden="true" width="24" height="24" sc-camel-view-box="0 0 24 24" fill="none" stroke="#EA6A12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h5l3-7 4 14 3-7h5"></path></svg><span>Ember</span></a>
+<nav style="display: flex; flex-wrap: wrap; gap: 4px">
+<a href="Main.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Overview</a>
+<a href="Product.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Product</a>
+<a href="Architecture.dc.html" style="padding: 11px 12px; border-radius: 8px; background: #FBEADB; color: #B84A0B; font-weight: 500; text-decoration: none">Architecture</a>
+<a href="Data-Metrics.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Data &amp; Metrics</a>
+<a href="Design-System.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Design system</a>
+<a href="Sales-Overview.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Sales screen</a>
+<a href="Operations.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Operations</a>
+</nav>
+</div>
+</header>
+<main style="max-width: 1120px; margin: 0 auto; padding: 56px 32px 96px; display: flex; flex-direction: column; gap: 56px">
+
+<section style="display: flex; flex-direction: column; gap: 12px">
+<p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">docs/architecture.md · docs/adr/ · v0.1 · §3</p>
+<h1 style="font-size: 28px; line-height: 36px; font-weight: 600">Architecture</h1>
+<p style="max-width: 720px; color: #7A6558">Python owns generation and raw ingestion, dbt owns transformations and data-quality contracts, Streamlit only presents what dbt has published.</p>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<div><h2 style="font-size: 18px; line-height: 26px; font-weight: 600">Data flow</h2></div>
+<div style="overflow-x: auto; background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px">
+<div style="position: relative; width: 1056px; height: 336px">
+
+<svg role="img" aria-label="From Synthetic source CSV/Parquet to Python ingestion" width="55" height="8" sc-camel-view-box="0 0 55 8" sc-camel-preserve-aspect-ratio="none" style="position: absolute; left: 176px; top: 88px; width: 55px; height: 8px; overflow: visible; fill: none; stroke: #7A6558; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><defs><marker id="dc-arrow-head-filled-1" orient="auto" sc-camel-marker-width="5" sc-camel-marker-height="5" sc-camel-ref-x="2" sc-camel-ref-y="2" overflow="visible"><path d="M0 0 L4 2 L0 4 Z" fill="#7A6558" stroke="none" style="stroke: none; fill: #7A6558; fill: context-stroke"></path></marker></defs><path d="M 0 4 L 51 4" marker-end="url(#dc-arrow-head-filled-1)"></path></svg>
+<svg role="img" aria-label="From Python ingestion to DuckDB raw" width="55" height="8" sc-camel-view-box="0 0 55 8" sc-camel-preserve-aspect-ratio="none" style="position: absolute; left: 392px; top: 88px; width: 55px; height: 8px; overflow: visible; fill: none; stroke: #7A6558; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><defs><marker id="dc-arrow-head-filled-2" orient="auto" sc-camel-marker-width="5" sc-camel-marker-height="5" sc-camel-ref-x="2" sc-camel-ref-y="2" overflow="visible"><path d="M0 0 L4 2 L0 4 Z" fill="#7A6558" stroke="none" style="stroke: none; fill: #7A6558; fill: context-stroke"></path></marker></defs><path d="M 0 4 L 51 4" marker-end="url(#dc-arrow-head-filled-2)"></path></svg>
+<svg role="img" aria-label="From DuckDB raw to dbt staging" width="55" height="8" sc-camel-view-box="0 0 55 8" sc-camel-preserve-aspect-ratio="none" style="position: absolute; left: 608px; top: 88px; width: 55px; height: 8px; overflow: visible; fill: none; stroke: #7A6558; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><defs><marker id="dc-arrow-head-filled-3" orient="auto" sc-camel-marker-width="5" sc-camel-marker-height="5" sc-camel-ref-x="2" sc-camel-ref-y="2" overflow="visible"><path d="M0 0 L4 2 L0 4 Z" fill="#7A6558" stroke="none" style="stroke: none; fill: #7A6558; fill: context-stroke"></path></marker></defs><path d="M 0 4 L 51 4" marker-end="url(#dc-arrow-head-filled-3)"></path></svg>
+<svg role="img" aria-label="From dbt staging to dbt core marts" width="55" height="8" sc-camel-view-box="0 0 55 8" sc-camel-preserve-aspect-ratio="none" style="position: absolute; left: 824px; top: 88px; width: 55px; height: 8px; overflow: visible; fill: none; stroke: #7A6558; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><defs><marker id="dc-arrow-head-filled-4" orient="auto" sc-camel-marker-width="5" sc-camel-marker-height="5" sc-camel-ref-x="2" sc-camel-ref-y="2" overflow="visible"><path d="M0 0 L4 2 L0 4 Z" fill="#7A6558" stroke="none" style="stroke: none; fill: #7A6558; fill: context-stroke"></path></marker></defs><path d="M 0 4 L 51 4" marker-end="url(#dc-arrow-head-filled-4)"></path></svg>
+<svg role="img" aria-label="From dbt core marts to Streamlit" width="8" height="71" sc-camel-view-box="0 0 8 71" sc-camel-preserve-aspect-ratio="none" style="position: absolute; left: 983px; top: 128px; width: 8px; height: 71px; overflow: visible; fill: none; stroke: #7A6558; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><defs><marker id="dc-arrow-head-filled-5" orient="auto" sc-camel-marker-width="5" sc-camel-marker-height="5" sc-camel-ref-x="2" sc-camel-ref-y="2" overflow="visible"><path d="M0 0 L4 2 L0 4 Z" fill="#7A6558" stroke="none" style="stroke: none; fill: #7A6558; fill: context-stroke"></path></marker></defs><path d="M 4 0 L 4 67" marker-end="url(#dc-arrow-head-filled-5)"></path></svg>
+<svg aria-hidden="true" width="8" height="36" sc-camel-view-box="0 0 8 36" sc-camel-preserve-aspect-ratio="none" style="position: absolute; left: 929px; top: 128px; width: 8px; height: 36px; overflow: visible; fill: none; stroke: #7A6558; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><path d="M 4 0 L 4 36"></path></svg>
+<svg aria-hidden="true" width="189" height="8" sc-camel-view-box="0 0 189 8" sc-camel-preserve-aspect-ratio="none" style="position: absolute; left: 744px; top: 160px; width: 189px; height: 8px; overflow: visible; fill: none; stroke: #7A6558; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><path d="M 0 4 L 189 4"></path></svg>
+<svg role="img" aria-label="From dbt core marts to dbt tests and reconciliation" width="8" height="35" sc-camel-view-box="0 0 8 35" sc-camel-preserve-aspect-ratio="none" style="position: absolute; left: 740px; top: 164px; width: 8px; height: 35px; overflow: visible; fill: none; stroke: #7A6558; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><defs><marker id="dc-arrow-head-filled-6" orient="auto" sc-camel-marker-width="5" sc-camel-marker-height="5" sc-camel-ref-x="2" sc-camel-ref-y="2" overflow="visible"><path d="M0 0 L4 2 L0 4 Z" fill="#7A6558" stroke="none" style="stroke: none; fill: #7A6558; fill: context-stroke"></path></marker></defs><path d="M 4 0 L 4 31" marker-end="url(#dc-arrow-head-filled-6)"></path></svg>
+<svg role="img" aria-label="From dbt tests and reconciliation to CI quality gate" width="55" height="8" sc-camel-view-box="0 0 55 8" sc-camel-preserve-aspect-ratio="none" style="position: absolute; left: 609px; top: 232px; width: 55px; height: 8px; overflow: visible; fill: none; stroke: #7A6558; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><defs><marker id="dc-arrow-head-filled-7" orient="auto" sc-camel-marker-width="5" sc-camel-marker-height="5" sc-camel-ref-x="2" sc-camel-ref-y="2" overflow="visible"><path d="M0 0 L4 2 L0 4 Z" fill="#7A6558" stroke="none" style="stroke: none; fill: #7A6558; fill: context-stroke"></path></marker></defs><path d="M 55 4 L 4 4" marker-end="url(#dc-arrow-head-filled-7)"></path></svg>
+
+<div style="position: absolute; left: 16px; top: 56px; width: 160px; height: 72px; box-sizing: border-box; padding: 8px; display: flex; align-items: center; justify-content: center; text-align: center; background: #FBEADB; border: 1px solid #F8CBA8; border-radius: 18px; color: #2B1D17"><span>Synthetic source<br>CSV/Parquet</span></div>
+<div style="position: absolute; left: 232px; top: 56px; width: 160px; height: 72px; box-sizing: border-box; padding: 8px; display: flex; align-items: center; justify-content: center; text-align: center; background: #FBEADB; border: 1px solid #F8CBA8; border-radius: 18px; color: #2B1D17"><span>Python<br>ingestion</span></div>
+<div style="position: absolute; left: 448px; top: 56px; width: 160px; height: 72px; box-sizing: border-box; padding: 8px; display: flex; align-items: center; justify-content: center; text-align: center; background: #FBEADB; border: 1px solid #F8CBA8; border-radius: 18px; color: #2B1D17"><span>DuckDB<br>raw</span></div>
+<div style="position: absolute; left: 664px; top: 56px; width: 160px; height: 72px; box-sizing: border-box; padding: 8px; display: flex; align-items: center; justify-content: center; text-align: center; background: #E6F4EE; border: 1px solid #BFE3D3; border-radius: 18px; color: #2B1D17"><span>dbt<br>staging</span></div>
+<div style="position: absolute; left: 880px; top: 56px; width: 160px; height: 72px; box-sizing: border-box; padding: 8px; display: flex; align-items: center; justify-content: center; text-align: center; background: #E6F4EE; border: 1px solid #BFE3D3; border-radius: 18px; color: #2B1D17"><span>dbt core<br>marts</span></div>
+<div style="position: absolute; left: 880px; top: 200px; width: 160px; height: 72px; box-sizing: border-box; padding: 8px; display: flex; align-items: center; justify-content: center; text-align: center; background: #FFFFFF; border: 1px solid #E3D3C5; border-radius: 18px; color: #2B1D17"><span>Streamlit</span></div>
+<div style="position: absolute; left: 664px; top: 200px; width: 160px; height: 72px; box-sizing: border-box; padding: 8px; display: flex; align-items: center; justify-content: center; text-align: center; background: #E6F4EE; border: 1px solid #BFE3D3; border-radius: 18px; color: #2B1D17"><span>dbt tests &amp;<br>reconciliation</span></div>
+<div style="position: absolute; left: 448px; top: 200px; width: 160px; height: 72px; box-sizing: border-box; padding: 8px; display: flex; align-items: center; justify-content: center; text-align: center; background: #F6ECE3; border: 1px solid #E3D3C5; border-radius: 18px; color: #2B1D17"><span>CI quality<br>gate</span></div>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px 24px; color: #7A6558">
+<span style="display: flex; align-items: center; gap: 8px"><span aria-hidden="true" style="width: 16px; height: 16px; border-radius: 4px; background: #FBEADB; border: 1px solid #F8CBA8"></span>Owned by Python</span>
+<span style="display: flex; align-items: center; gap: 8px"><span aria-hidden="true" style="width: 16px; height: 16px; border-radius: 4px; background: #E6F4EE; border: 1px solid #BFE3D3"></span>Owned by dbt</span>
+<span style="display: flex; align-items: center; gap: 8px"><span aria-hidden="true" style="width: 16px; height: 16px; border-radius: 4px; background: #FFFFFF; border: 1px solid #E3D3C5"></span>Presentation only</span>
+<span style="display: flex; align-items: center; gap: 8px"><span aria-hidden="true" style="width: 16px; height: 16px; border-radius: 4px; background: #F6ECE3; border: 1px solid #E3D3C5"></span>Automation</span>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<div><h2 style="font-size: 18px; line-height: 26px; font-weight: 600">Proposed technology decisions</h2></div>
+<div style="overflow-x: auto; background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px">
+<sc-raw-table>
+<sc-raw-thead><sc-raw-tr><sc-raw-th>Concern</sc-raw-th><sc-raw-th>Decision</sc-raw-th><sc-raw-th>Why</sc-raw-th><sc-raw-th>Trade-off</sc-raw-th></sc-raw-tr></sc-raw-thead>
+<sc-raw-tbody>
+<sc-raw-tr><sc-raw-td style="font-weight: 500">Language</sc-raw-td><sc-raw-td>Python + SQL</sc-raw-td><sc-raw-td>Focus on transformation and testability</sc-raw-td><sc-raw-td>Two execution contexts</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td style="font-weight: 500">Analytical database</sc-raw-td><sc-raw-td>DuckDB file</sc-raw-td><sc-raw-td>Local, fast setup, low cost</sc-raw-td><sc-raw-td>Not a multi-user serving database</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td style="font-weight: 500">Transformations</sc-raw-td><sc-raw-td>dbt Core + DuckDB adapter</sc-raw-td><sc-raw-td>Model lineage, tests, macros, documentation</sc-raw-td><sc-raw-td>Adapter/version compatibility must be pinned</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td style="font-weight: 500">Dashboard</sc-raw-td><sc-raw-td>Streamlit</sc-raw-td><sc-raw-td>Quick interactive evidence</sc-raw-td><sc-raw-td>Fewer controls over UI than a dedicated front-end</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td style="font-weight: 500">Automation</sc-raw-td><sc-raw-td>GitHub Actions</sc-raw-td><sc-raw-td>Visible PR quality gate</sc-raw-td><sc-raw-td>CI workflow requires isolated setup</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td style="font-weight: 500">Packaging</sc-raw-td><sc-raw-td><code>pyproject.toml</code> + pinned lock/dependencies</sc-raw-td><sc-raw-td>Reproducibility</sc-raw-td><sc-raw-td>Dependency maintenance</sc-raw-td></sc-raw-tr>
+</sc-raw-tbody>
+</sc-raw-table>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 16px 24px; display: flex; gap: 16px; align-items: flex-start">
+<span aria-hidden="true" style="flex: none; width: 24px; height: 24px; border-radius: 999px; background: #FBEADB; color: #B84A0B; font-size: 14px; line-height: 24px; font-weight: 600; text-align: center">i</span>
+<p><b>Architecture boundaries:</b> Python owns synthetic generation and raw ingestion; dbt owns transformations and data-quality contracts; Streamlit only reads published marts and must not redefine business formulas.</p>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<div><h2 style="font-size: 18px; line-height: 26px; font-weight: 600">Repository proposal</h2></div>
+<div style="overflow-x: auto; background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px">
+<pre style="font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; line-height: 20px; color: #2B1D17">datapulse/
+├── README.md
+├── pyproject.toml
+├── .github/workflows/ci.yml
+├── config/
+├── data/                 # synthetic fixtures only; generated files ignored
+├── scripts/              # generation and ingestion entrypoints
+├── analytics/
+│   ├── dbt_project.yml
+│   ├── models/
+│   │   ├── sources/
+│   │   ├── staging/
+│   │   ├── intermediate/
+│   │   └── marts/
+│   ├── macros/
+│   ├── seeds/
+│   └── tests/
+├── dashboard/
+├── tests/                # Python unit/integration tests
+└── docs/
+    ├── product.md
+    ├── architecture.md
+    ├── data-contracts.md
+    ├── metrics.md
+    ├── design-system.md
+    ├── runbook.md
+    └── adr/</pre>
+</div>
+<p style="color: #7A6558">The tree is a target structure, not existing files. Keep the project small: introduce folders only when their contents exist.</p>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<div><p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Architecture decisions to record</p><h2 style="font-size: 18px; line-height: 26px; font-weight: 600">ADR index</h2></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 16px">
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 8px"><div style="display: flex; justify-content: space-between; gap: 8px"><span style="font-weight: 600">ADR-001</span><span style="padding: 2px 10px; border-radius: 999px; background: #F6ECE3; color: #2B1D17; font-size: 12px; line-height: 18px; font-weight: 500">To record</span></div><p>DuckDB locally instead of cloud warehouse.</p></div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 8px"><div style="display: flex; justify-content: space-between; gap: 8px"><span style="font-weight: 600">ADR-002</span><span style="padding: 2px 10px; border-radius: 999px; background: #F6ECE3; color: #2B1D17; font-size: 12px; line-height: 18px; font-weight: 500">To record</span></div><p>dbt owns business logic; dashboard is presentation only.</p></div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 8px"><div style="display: flex; justify-content: space-between; gap: 8px"><span style="font-weight: 600">ADR-003</span><span style="padding: 2px 10px; border-radius: 999px; background: #F6ECE3; color: #2B1D17; font-size: 12px; line-height: 18px; font-weight: 500">To record</span></div><p>Financial aggregates use order-cohort time, with restatement from late refunds.</p></div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 8px"><div style="display: flex; justify-content: space-between; gap: 8px"><span style="font-weight: 600">ADR-004</span><span style="padding: 2px 10px; border-radius: 999px; background: #F6ECE3; color: #2B1D17; font-size: 12px; line-height: 18px; font-weight: 500">To record</span></div><p>Full-refresh first; incremental when verified.</p></div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 8px"><div style="display: flex; justify-content: space-between; gap: 8px"><span style="font-weight: 600">ADR-005</span><span style="padding: 2px 10px; border-radius: 999px; background: #F6ECE3; color: #2B1D17; font-size: 12px; line-height: 18px; font-weight: 500">To record</span></div><p>Failed critical checks block publication.</p></div>
+</div>
+</section>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:3000}}">
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+
+
+</body></html>

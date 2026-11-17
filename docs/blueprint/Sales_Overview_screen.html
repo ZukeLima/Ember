@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<title>Ember: Sales Overview screen</title>
+<script src="b2e0e684-e4ed-450e-af07-9979956e39b8"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#FFF7F0;color:#2B1D17;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:14px;line-height:22px}
+a{color:#EA6A12}a:hover{color:#B84A0B}
+h1,h2,h3,p,ul,ol{margin:0}
+ul,ol{padding-left:20px}
+table{width:100%;border-collapse:collapse;font-size:14px;line-height:22px}
+th{text-align:left;font-size:12px;line-height:18px;font-weight:500;color:#7A6558;padding:6px 16px;border-bottom:1px solid #F1E4D9;background:#FFFFFF;white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid #F1E4D9;vertical-align:top}
+tr:last-child td{border-bottom:0}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;background:#F6ECE3;padding:1px 6px;border-radius:6px}
+input,select,button,summary{font-family:inherit;font-size:14px;line-height:22px;color:#2B1D17}
+</style>
+</helmet>
+<div style="background: #FFF7F0; min-height: 900px">
+<header style="background: #FFFFFF; border-bottom: 1px solid #F1E4D9">
+<div style="max-width: 1120px; margin: 0 auto; padding: 12px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 8px; font-size: 18px; line-height: 26px; font-weight: 600; color: #2B1D17; text-decoration: none"><svg aria-hidden="true" width="24" height="24" sc-camel-view-box="0 0 24 24" fill="none" stroke="#EA6A12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h5l3-7 4 14 3-7h5"></path></svg><span>Ember</span></a>
+<nav style="display: flex; flex-wrap: wrap; gap: 4px">
+<a href="Main.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Overview</a>
+<a href="Product.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Product</a>
+<a href="Architecture.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Architecture</a>
+<a href="Data-Metrics.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Data &amp; Metrics</a>
+<a href="Design-System.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Design system</a>
+<a href="Sales-Overview.dc.html" style="padding: 11px 12px; border-radius: 8px; background: #FBEADB; color: #B84A0B; font-weight: 500; text-decoration: none">Sales screen</a>
+<a href="Operations.dc.html" style="padding: 11px 12px; border-radius: 8px; color: #2B1D17; font-weight: 500; text-decoration: none">Operations</a>
+</nav>
+</div>
+</header>
+<main style="max-width: 1120px; margin: 0 auto; padding: 56px 32px 96px; display: flex; flex-direction: column; gap: 40px">
+
+<section style="display: flex; flex-direction: column; gap: 12px">
+<p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Screen 01 · v0.1 · §5</p>
+<h1 style="font-size: 28px; line-height: 36px; font-weight: 600">Sales Overview screen</h1>
+<p style="max-width: 720px; color: #7A6558">The one MVP screen, drawn with the design system. All values are illustrative and consistent with the metric dictionary (net sales = eligible gross − refunds); they are not real data.</p>
+</section>
+
+<section style="border: 1px solid #E3D3C5; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 24px">
+
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<div style="display: flex; flex-direction: column"><span style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Ember</span><h2 style="font-size: 28px; line-height: 36px; font-weight: 600">Sales Overview</h2></div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<span style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: #E6F4EE; color: #0F6B4A; font-size: 12px; line-height: 18px; font-weight: 500"><svg aria-hidden="true" width="16" height="16" sc-camel-view-box="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"></circle><path d="M5 8.2l2 2 4-4.4"></path></svg>Healthy · last successful run [timestamp] UTC</span>
+<span style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: #E6F4EE; color: #0F6B4A; font-size: 12px; line-height: 18px; font-weight: 500"><svg aria-hidden="true" width="16" height="16" sc-camel-view-box="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"></circle><path d="M5 8.2l2 2 4-4.4"></path></svg>Quality: all critical tests passed</span>
+</div>
+</div>
+
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 16px 24px; display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end">
+<label style="display: flex; flex-direction: column; gap: 4px; flex: 1 1 140px"><span style="font-size: 12px; line-height: 18px; font-weight: 500">Start date</span><input type="date" value="2026-01-01" style="box-sizing: border-box; height: 44px; padding: 0 12px; border: 1px solid #BFA896; border-radius: 8px; background: #FFFFFF"></label>
+<label style="display: flex; flex-direction: column; gap: 4px; flex: 1 1 140px"><span style="font-size: 12px; line-height: 18px; font-weight: 500">End date</span><input type="date" value="2026-01-14" style="box-sizing: border-box; height: 44px; padding: 0 12px; border: 1px solid #BFA896; border-radius: 8px; background: #FFFFFF"></label>
+<label style="display: flex; flex-direction: column; gap: 4px; flex: 2 1 220px"><span style="font-size: 12px; line-height: 18px; font-weight: 500">Category / product</span><sc-raw-select style="box-sizing: border-box; height: 44px; padding: 0 12px; border: 1px solid #BFA896; border-radius: 8px; background: #FFFFFF"><option>All products</option></sc-raw-select></label>
+<button type="button" style="height: 44px; padding: 0 16px; border: 1px solid #BFA896; border-radius: 8px; background: #FFFFFF; font-weight: 500">Reset</button>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 16px">
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px"><span style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Eligible gross</span><button type="button" aria-label="Definition of eligible gross: sum of quantity times unit price for order items whose latest order status is completed" style="width: 44px; height: 44px; margin: -12px -12px -12px 0; border: 0; background: transparent; border-radius: 8px; cursor: help; color: #7A6558"><svg aria-hidden="true" width="16" height="16" sc-camel-view-box="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"></circle><path d="M8 7.2v4"></path><circle cx="8" cy="4.9" r=".5" fill="currentColor"></circle></svg></button></div>
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 4px"><span style="font-size: 14px; line-height: 22px; color: #7A6558">R$</span><span style="font-size: 28px; line-height: 34px; font-weight: 600">48.250,00</span></div>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px"><span style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Refunds</span><button type="button" aria-label="Definition of refunded amount: sum of successful refunds linked to eligible completed order items" style="width: 44px; height: 44px; margin: -12px -12px -12px 0; border: 0; background: transparent; border-radius: 8px; cursor: help; color: #7A6558"><svg aria-hidden="true" width="16" height="16" sc-camel-view-box="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"></circle><path d="M8 7.2v4"></path><circle cx="8" cy="4.9" r=".5" fill="currentColor"></circle></svg></button></div>
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 4px"><span style="font-size: 14px; line-height: 22px; color: #7A6558">R$</span><span style="font-size: 28px; line-height: 34px; font-weight: 600">3.120,50</span></div>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px"><span style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Net sales</span><button type="button" aria-label="Definition of net sales: eligible gross minus refunded amount" style="width: 44px; height: 44px; margin: -12px -12px -12px 0; border: 0; background: transparent; border-radius: 8px; cursor: help; color: #7A6558"><svg aria-hidden="true" width="16" height="16" sc-camel-view-box="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"></circle><path d="M8 7.2v4"></path><circle cx="8" cy="4.9" r=".5" fill="currentColor"></circle></svg></button></div>
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 4px"><span style="font-size: 14px; line-height: 22px; color: #7A6558">R$</span><span style="font-size: 28px; line-height: 34px; font-weight: 600">45.129,50</span></div>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px"><span style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Completed orders</span><button type="button" aria-label="Definition of completed orders: count of distinct completed order IDs" style="width: 44px; height: 44px; margin: -12px -12px -12px 0; border: 0; background: transparent; border-radius: 8px; cursor: help; color: #7A6558"><svg aria-hidden="true" width="16" height="16" sc-camel-view-box="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"></circle><path d="M8 7.2v4"></path><circle cx="8" cy="4.9" r=".5" fill="currentColor"></circle></svg></button></div>
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 4px"><span style="font-size: 28px; line-height: 34px; font-weight: 600">312</span></div>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px"><span style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Average order value</span><button type="button" aria-label="Definition of average order value: net sales divided by completed orders; empty if there are no completed orders" style="width: 44px; height: 44px; margin: -12px -12px -12px 0; border: 0; background: transparent; border-radius: 8px; cursor: help; color: #7A6558"><svg aria-hidden="true" width="16" height="16" sc-camel-view-box="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"></circle><path d="M8 7.2v4"></path><circle cx="8" cy="4.9" r=".5" fill="currentColor"></circle></svg></button></div>
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 4px"><span style="font-size: 14px; line-height: 22px; color: #7A6558">R$</span><span style="font-size: 28px; line-height: 34px; font-weight: 600">144,65</span></div>
+</div>
+</div>
+
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px"><h3 style="font-size: 18px; line-height: 26px; font-weight: 600">Daily net sales</h3><span style="font-size: 12px; line-height: 18px; color: #7A6558">R$ per order date · UTC · order-cohort view</span></div>
+<div style="overflow-x: auto">
+<svg role="img" aria-label="Line chart of daily net sales in reais from 01/01 to 14/01. Values range from R$ 2.800,00 to R$ 3.800,00. The same values are available in the table below." width="720" height="260" sc-camel-view-box="0 0 720 260" style="display: block; min-width: 720px; max-width: 100%; height: auto">
+<g stroke="#F1E4D9" stroke-width="1"><line x1="56" y1="220" x2="704" y2="220"></line><line x1="56" y1="169" x2="704" y2="169"></line><line x1="56" y1="118" x2="704" y2="118"></line><line x1="56" y1="67" x2="704" y2="67"></line><line x1="56" y1="16" x2="704" y2="16"></line></g>
+<g fill="#7A6558" font-size="12" text-anchor="end"><text x="48" y="224">0</text><text x="48" y="173">1.000</text><text x="48" y="122">2.000</text><text x="48" y="71">3.000</text><text x="48" y="20">4.000</text></g>
+<g fill="#7A6558" font-size="12" text-anchor="middle"><text x="56" y="242">01/01</text><text x="155.7" y="242">03/01</text><text x="255.4" y="242">05/01</text><text x="355.1" y="242">07/01</text><text x="454.8" y="242">09/01</text><text x="554.5" y="242">11/01</text><text x="654.2" y="242">13/01</text></g>
+<polyline fill="none" stroke="#EA6A12" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" points="56,77.2 105.8,61.9 155.7,46.6 205.5,72.1 255.4,36.4 305.2,72.1 355.1,51.7 404.9,67 454.8,56.8 504.6,41.5 554.5,26.2 604.3,61.9 654.2,46.6 704,60.4"></polyline>
+<g fill="#FFFFFF" stroke="#EA6A12" stroke-width="2"><circle cx="56" cy="77.2" r="3"></circle><circle cx="105.8" cy="61.9" r="3"></circle><circle cx="155.7" cy="46.6" r="3"></circle><circle cx="205.5" cy="72.1" r="3"></circle><circle cx="255.4" cy="36.4" r="3"></circle><circle cx="305.2" cy="72.1" r="3"></circle><circle cx="355.1" cy="51.7" r="3"></circle><circle cx="404.9" cy="67" r="3"></circle><circle cx="454.8" cy="56.8" r="3"></circle><circle cx="504.6" cy="41.5" r="3"></circle><circle cx="554.5" cy="26.2" r="4" fill="#EA6A12"></circle><circle cx="604.3" cy="61.9" r="3"></circle><circle cx="654.2" cy="46.6" r="3"></circle><circle cx="704" cy="60.4" r="3"></circle></g>
+<rect x="484" y="52" width="140" height="34" rx="6" fill="#2B1D17"></rect>
+<text x="554" y="67" fill="#FFFFFF" font-size="12" text-anchor="middle">11/01</text>
+<text x="554" y="81" fill="#FFFFFF" font-size="12" font-weight="600" text-anchor="middle">R$ 3.800,00</text>
+</svg>
+</div>
+<details>
+<summary style="min-height: 44px; display: flex; align-items: center; cursor: pointer; font-weight: 500; color: #B84A0B">View as table</summary>
+<div style="overflow-x: auto; border: 1px solid #F1E4D9; border-radius: 18px">
+<sc-raw-table>
+<sc-raw-thead><sc-raw-tr><sc-raw-th>Order date (UTC)</sc-raw-th><sc-raw-th class="num">Net sales (R$)</sc-raw-th></sc-raw-tr></sc-raw-thead>
+<sc-raw-tbody>
+<sc-raw-tr><sc-raw-td>01/01</sc-raw-td><sc-raw-td class="num">2.800,00</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td>02/01</sc-raw-td><sc-raw-td class="num">3.100,00</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td>03/01</sc-raw-td><sc-raw-td class="num">3.400,00</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td>04/01</sc-raw-td><sc-raw-td class="num">2.900,00</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td>05/01</sc-raw-td><sc-raw-td class="num">3.600,00</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td>06/01</sc-raw-td><sc-raw-td class="num">2.900,00</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td>07/01</sc-raw-td><sc-raw-td class="num">3.300,00</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td>08/01</sc-raw-td><sc-raw-td class="num">3.000,00</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td>09/01</sc-raw-td><sc-raw-td class="num">3.200,00</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td>10/01</sc-raw-td><sc-raw-td class="num">3.500,00</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td>11/01</sc-raw-td><sc-raw-td class="num">3.800,00</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td>12/01</sc-raw-td><sc-raw-td class="num">3.100,00</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td>13/01</sc-raw-td><sc-raw-td class="num">3.400,00</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td>14/01</sc-raw-td><sc-raw-td class="num">3.129,50</sc-raw-td></sc-raw-tr>
+</sc-raw-tbody>
+</sc-raw-table>
+</div>
+</details>
+</div>
+
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+<h3 style="font-size: 18px; line-height: 26px; font-weight: 600">Sales by category</h3>
+<div style="overflow-x: auto; border: 1px solid #F1E4D9; border-radius: 18px">
+<sc-raw-table>
+<sc-raw-thead><sc-raw-tr>
+<sc-raw-th scope="col"><button type="button" style="border: 0; background: transparent; padding: 10px 0; min-height: 44px; font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558; cursor: pointer">Category</button></sc-raw-th>
+<sc-raw-th scope="col" class="num"><button type="button" style="border: 0; background: transparent; padding: 10px 0; min-height: 44px; font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558; cursor: pointer">Eligible gross</button></sc-raw-th>
+<sc-raw-th scope="col" class="num"><button type="button" style="border: 0; background: transparent; padding: 10px 0; min-height: 44px; font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558; cursor: pointer">Refunds</button></sc-raw-th>
+<sc-raw-th scope="col" class="num" aria-sort="descending"><button type="button" style="border: 0; background: transparent; padding: 10px 0; min-height: 44px; font-size: 12px; line-height: 18px; font-weight: 600; color: #2B1D17; cursor: pointer">Net sales ↓</button></sc-raw-th>
+</sc-raw-tr></sc-raw-thead>
+<sc-raw-tbody>
+<sc-raw-tr><sc-raw-td>[category A]</sc-raw-td><sc-raw-td class="num">18.400,00</sc-raw-td><sc-raw-td class="num">1.050,00</sc-raw-td><sc-raw-td class="num">17.350,00</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td>[category B]</sc-raw-td><sc-raw-td class="num">14.950,00</sc-raw-td><sc-raw-td class="num">1.320,50</sc-raw-td><sc-raw-td class="num">13.629,50</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td>[category C]</sc-raw-td><sc-raw-td class="num">9.700,00</sc-raw-td><sc-raw-td class="num">450,00</sc-raw-td><sc-raw-td class="num">9.250,00</sc-raw-td></sc-raw-tr>
+<sc-raw-tr><sc-raw-td>[category D]</sc-raw-td><sc-raw-td class="num">5.200,00</sc-raw-td><sc-raw-td class="num">300,00</sc-raw-td><sc-raw-td class="num">4.900,00</sc-raw-td></sc-raw-tr>
+<sc-raw-tr style="background: #FFF7F0"><sc-raw-td style="font-weight: 600">Total</sc-raw-td><sc-raw-td class="num" style="font-weight: 600">48.250,00</sc-raw-td><sc-raw-td class="num" style="font-weight: 600">3.120,50</sc-raw-td><sc-raw-td class="num" style="font-weight: 600">45.129,50</sc-raw-td></sc-raw-tr>
+</sc-raw-tbody>
+</sc-raw-table>
+</div>
+<p style="color: #7A6558">Order counts are not summed across categories, because one order can contain items from several of them.</p>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); gap: 16px">
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+<h3 style="font-size: 18px; line-height: 26px; font-weight: 600">Metric definitions</h3>
+<ul style="display: flex; flex-direction: column; gap: 8px">
+<li><b>Eligible gross:</b> Sum(<code>quantity * unit_price</code>) for order items whose latest order status is <code>completed</code>. Pending and cancelled are excluded.</li>
+<li><b>Refunds:</b> Sum of successful refunds linked to eligible completed order items. Pending and failed refunds are excluded.</li>
+<li><b>Net sales:</b> <code>eligible_gross - refunded_amount</code>, 2 decimal places.</li>
+<li><b>Completed orders:</b> Count of distinct completed <code>order_id</code>.</li>
+<li><b>Average order value:</b> <code>net_sales / completed_orders</code>; empty when there are no completed orders.</li>
+</ul>
+<p style="color: #7A6558">Order-cohort reporting: refunds adjust the original order's date, so past days can change when late refunds arrive.</p>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+<h3 style="font-size: 18px; line-height: 26px; font-weight: 600">Pipeline status</h3>
+<ul style="display: flex; flex-direction: column; gap: 8px">
+<li><b>Last successful run:</b> [timestamp] UTC</li>
+<li><b>Row counts:</b> [per table, from run artifacts]</li>
+<li><b>Test status:</b> all critical tests passed</li>
+</ul>
+<a href="Data-Metrics.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; font-weight: 500">Read the metric documentation →</a>
+</div>
+</div>
+
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<div><p style="font-size: 12px; line-height: 18px; font-weight: 500; color: #7A6558">Screen states</p><h2 style="font-size: 18px; line-height: 26px; font-weight: 600">Loading, empty, stale and critical failure</h2></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); gap: 16px">
+
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+<h3 style="font-size: 16px; line-height: 24px; font-weight: 600">Loading skeleton</h3>
+<div aria-busy="true" style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px"><div style="height: 64px; border-radius: 8px; background: #F1E4D9"></div><div style="height: 64px; border-radius: 8px; background: #F1E4D9"></div><div style="height: 64px; border-radius: 8px; background: #F1E4D9"></div></div>
+<div style="height: 96px; border-radius: 8px; background: #F1E4D9"></div>
+</div>
+<p style="color: #7A6558">Shapes hold the layout while the curated snapshot loads. No numbers are shown.</p>
+</div>
+
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+<h3 style="font-size: 16px; line-height: 24px; font-weight: 600">No data for filter</h3>
+<div style="border: 1px dashed #BFA896; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start">
+<p style="font-weight: 600">No completed orders match these filters</p>
+<p style="color: #7A6558">Widen the date range or choose All products. Nothing is shown as R$ 0,00 because no sales were recorded for this selection.</p>
+<button type="button" style="height: 44px; padding: 0 16px; border: 1px solid #BFA896; border-radius: 8px; background: #FFFFFF; font-weight: 500">Reset filters</button>
+</div>
+</div>
+
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+<h3 style="font-size: 16px; line-height: 24px; font-weight: 600">Refresh stale</h3>
+<div role="status" style="display: flex; gap: 12px; align-items: flex-start; padding: 16px; border-radius: 18px; background: #FBF1DF; border: 1px solid #EBD9AE"><svg aria-hidden="true" style="flex: none; margin-top: 3px; color: #7A5208" width="16" height="16" sc-camel-view-box="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2l6.5 11.5h-13z"></path><path d="M8 6.5v3"></path><circle cx="8" cy="11.5" r=".4" fill="currentColor"></circle></svg><p><b style="color: #7A5208">Warning · stale data.</b> Last successful refresh was [timestamp] UTC. Figures passed all tests but may miss newer orders.</p></div>
+<p style="color: #7A6558">KPIs stay visible because they are valid; the freshness badge switches to Stale.</p>
+</div>
+
+<div style="background: #FFFFFF; border: 1px solid #F1E4D9; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+<h3 style="font-size: 16px; line-height: 24px; font-weight: 600">Critical data-quality failure</h3>
+<div role="alert" style="display: flex; gap: 12px; align-items: flex-start; padding: 16px; border-radius: 18px; background: #FBE7E7; border: 1px solid #F0C4C4"><svg aria-hidden="true" style="flex: none; margin-top: 3px; color: #A33232" width="16" height="16" sc-camel-view-box="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"></circle><path d="M5.8 5.8l4.4 4.4M10.2 5.8l-4.4 4.4"></path></svg><p><b style="color: #A33232">Failure · invalid data.</b> A critical check failed, so newly computed results are not published.</p></div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+<div style="border: 1px solid #F1E4D9; border-radius: 8px; padding: 12px"><p style="font-size: 12px; line-height: 18px; color: #7A6558">Net sales</p><p style="font-size: 18px; line-height: 26px; font-weight: 600; color: #7A6558">-</p></div>
+<div style="border: 1px solid #F1E4D9; border-radius: 8px; padding: 12px"><p style="font-size: 12px; line-height: 18px; color: #7A6558">Completed orders</p><p style="font-size: 18px; line-height: 26px; font-weight: 600; color: #7A6558">-</p></div>
+<div style="border: 1px solid #F1E4D9; border-radius: 8px; padding: 12px"><p style="font-size: 12px; line-height: 18px; color: #7A6558">Average order value</p><p style="font-size: 18px; line-height: 26px; font-weight: 600; color: #7A6558">-</p></div>
+</div>
+<p style="color: #7A6558">KPIs are blocked. The alternative is to show the last known-good snapshot, clearly labeled as not current, with its run timestamp.</p>
+</div>
+
+</div>
+</section>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:3700}}">
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+
+
+</body></html>

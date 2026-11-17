@@ -1,0 +1,34 @@
+# Fixture profiles used by tests and CI. Each profile overrides generator.yml
+# and optionally injects edge cases ("dirty" records) on top of the clean output.
+#
+# clean  → canonical fixture; every contract must pass.
+# dirty  → clean + deliberate violations; the quality gate MUST fail on it.
+# tiny   → minimal clean fixture for CI speed.
+
+profiles:
+  clean:
+    seed: 20260101
+    row_counts: { customers: 200, products: 40, orders: 600 }
+    inject: []
+
+  demo:
+    seed: 20260101
+    days: 90
+    row_counts: { customers: 500, products: 40, orders: 4000 }
+    inject: []
+
+  tiny:
+    seed: 7
+    row_counts: { customers: 30, products: 10, orders: 80 }
+    inject: []
+
+  dirty:
+    seed: 20260101
+    row_counts: { customers: 200, products: 40, orders: 600 }
+    inject:
+      - duplicate_order_snapshot      # same order_id + updated_at + source_sequence + hash → accepted replay
+      - conflicting_order_snapshot    # same keys, different status → load must be rejected
+      - missing_customer_fk           # order_item/order referencing unknown customer_id
+      - refund_over_item_value        # refund amount > item amount
+      - negative_amount               # negative unit_price
+      - duplicate_refund_delivery     # same refund_id delivered twice (identical) → accepted
